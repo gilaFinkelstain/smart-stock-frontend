@@ -1,0 +1,18 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Node
+node_modules/
+
+# IDE
+.idea/
+/.idea
+# OS
+.DS_Store
+Thumbs.db
+.claude

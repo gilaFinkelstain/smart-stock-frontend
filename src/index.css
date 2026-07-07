@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── Warm, personal palette ── */
+    --background: 30 40% 97%;           /* #FFF8F0 — warm cream paper */
+    --foreground: 30 8% 12%;            /* #2D2B2A — deep brown-black ink */
+
+    --card: 30 35% 94%;                 /* #F5EDE4 — slightly warmer card */
+    --card-foreground: 30 8% 12%;
+
+    --primary: 18 58% 50%;              /* #D4784C — terracotta/saffron */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 28 30% 40%;            /* #8B5E3C — rich cinnamon */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 30 25% 88%;               /* #E8D5C4 — warm sand/linen */
+    --muted-foreground: 28 15% 35%;     /* muted brown text */
+
+    --accent: 145 25% 42%;             /* #4A7C59 — sage green */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 55% 52%;           /* #C44E4E — deep red */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 30 20% 82%;              /* warm border */
+    --input: 30 20% 88%;
+    --ring: 18 58% 50%;
+
+    /* ── Typography ── */
+    --font-display: 'Frank Ruhl Libre', 'Times New Roman', serif;
+    --font-body: 'Assistant', system-ui, -apple-system, sans-serif;
+
+    --radius: 0.75rem;
+    --radius-sm: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.25rem;
+  }
+
+  /* ── Subtle dark mode: warm, not cold ── */
+  .dark {
+    --background: 30 10% 8%;             /* deep warm brown-black */
+    --foreground: 30 30% 92%;
+
+    --card: 30 10% 12%;
+    --card-foreground: 30 30% 92%;
+
+    --primary: 18 55% 55%;
+    --primary-foreground: 30 10% 8%;
+
+    --secondary: 28 30% 50%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 30 12% 18%;
+    --muted-foreground: 28 20% 65%;
+
+    --accent: 145 25% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 55% 48%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 30 12% 22%;
+    --input: 30 12% 22%;
+    --ring: 18 55% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  /* ── Display type for headings ── */
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Hebrew-friendly body type ── */
+  body, p, span, div, button, input, select, textarea, table, label, a {
+    font-family: var(--font-body);
+  }
+
+  /* ── Focus ring — warm ── */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+    outline-style: solid;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Custom Utilities
+   ═══════════════════════════════════════════ */
+
+@layer utilities {
+  /* Warm gradient accent strip for cards */
+  .accent-strip {
+    position: relative;
+  }
+  .accent-strip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--secondary)) 50%,
+      hsl(var(--accent)) 100%
+    );
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  /* Receipt-edge pattern — scalloped, used on key cards */
+  .receipt-edge {
+    position: relative;
+  }
+  .receipt-edge::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 8px;
+    right: 8px;
+    height: 8px;
+    background:
+      radial-gradient(circle at 4px 4px, transparent 4px, hsl(var(--card)) 4px) 0 0 / 10px 8px,
+      radial-gradient(circle at 4px 4px, transparent 4px, hsl(var(--card)) 4px) 5px 0 / 10px 8px;
+  }
+
+  /* Subtle inner shadow for depth on cards — like pressed paper */
+  .card-pressed {
+    box-shadow:
+      inset 0 1px 0 0 hsl(var(--background)),
+      0 1px 3px 0 hsl(30 10% 0% / 0.06),
+      0 1px 2px -1px hsl(30 10% 0% / 0.06);
+  }
+
+  /* Number display — monospaced within body font for stats */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Warm decorative divider */
+  .divider-warm {
+    border: none;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(var(--border)) 20%,
+      hsl(var(--border)) 80%,
+      transparent 100%
+    );
+  }
+
+  /* ── Animation utilities ── */
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.35s ease-out;
+  }
+  .animate-scale-in {
+    animation: scaleIn 0.25s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ═══════════════════════════════════════════
+   Scrollbar styling — warm, subtle
+   ═══════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.35);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.55);
+}
+
+/* ═══════════════════════════════════════════
+   Selection color
+   ═══════════════════════════════════════════ */
+::selection {
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--foreground));
+}
